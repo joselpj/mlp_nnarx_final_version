@@ -108,7 +108,7 @@ def silver_box_dataset(na=1, nb=1, nk=1, normalize=True):
     y_test = np.zeros((row_test, 1))
 
     for i in np.arange(na):
-        x_train[:, i] = dataset_train[na - i:-(i + 1), 2]
+        x_train[:, i] = dataset_train[na - i:-(i + 1), 3]
 
     for j in np.arange(na, col):
         x_train[:, j] = dataset_train[col - 1 - j:-nb + (col - 1 - j), 2]
@@ -116,7 +116,7 @@ def silver_box_dataset(na=1, nb=1, nk=1, normalize=True):
     y_train[:, 0] = dataset_train[na + 1:, 3]
 
     for i in np.arange(na):
-        x_test[:, i] = dataset_test[na - i:-(i + 1), 2]
+        x_test[:, i] = dataset_test[na - i:-(i + 1), 3]
 
     for j in np.arange(na, col):
         x_test[:, j] = dataset_test[col - 1 - j:-nb + (col - 1 - j), 2]
@@ -136,8 +136,8 @@ def silver_box_dataset(na=1, nb=1, nk=1, normalize=True):
 
 def wiener_hammer_dataset(na=1, nb=1, nk=1, normalize=True):
     dataset = load_dataset("WienerHammerBenchmark.csv")
-    dataset_train = dataset[0:1001, :]
-    dataset_test = dataset[1001:2001, :]
+    dataset_train = dataset[5000:6001, :] # [0:1001, :]
+    dataset_test = dataset[6001:7001, :] # [0:1001, :]
     col = na + nb
     row_train = dataset_train.shape[0] - nb
     row_test = dataset_test.shape[0] - nb
@@ -149,7 +149,7 @@ def wiener_hammer_dataset(na=1, nb=1, nk=1, normalize=True):
     y_test = np.zeros((row_test, 1))
 
     for i in np.arange(na):
-        x_train[:, i] = dataset_train[na - i:-(i + 1), 0]
+        x_train[:, i] = dataset_train[na - i:-(i + 1), 1]
 
     for j in np.arange(na, col):
         x_train[:, j] = dataset_train[col - 1 - j:-nb + (col - 1 - j), 0]
@@ -157,7 +157,7 @@ def wiener_hammer_dataset(na=1, nb=1, nk=1, normalize=True):
     y_train[:, 0] = dataset_train[na + 1:, 1]
 
     for i in np.arange(na):
-        x_test[:, i] = dataset_test[na - i:-(i + 1), 0]
+        x_test[:, i] = dataset_test[na - i:-(i + 1), 1]
 
     for j in np.arange(na, col):
         x_test[:, j] = dataset_test[col - 1 - j:-nb + (col - 1 - j), 0]
@@ -198,3 +198,5 @@ if __name__ == "__main__":
     print("\n y_train: \n", y_train[0])
     print("x_test: \n", x_test[0, :])
     print("\n y_test: \n", y_test[0])
+
+
