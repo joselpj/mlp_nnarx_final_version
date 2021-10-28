@@ -9,19 +9,19 @@ from torch.utils.data import DataLoader, TensorDataset
 from mlp import MLP
 #from load_data import cascaded_tanks_dataset
 #from load_data import gas_furnace_dataset
-from load_data import silver_box_dataset
-#from load_data import wiener_hammer_dataset
+#from load_data import silver_box_dataset
+from load_data import wiener_hammer_dataset
 import os
 import datetime
 
 device = torch.device("cuda:0")
 
 
-mlp = MLP(9,1,64)
+mlp = MLP(2,1,64)
 
 # Load and prepare training data
-data_name = "silver_box_dataset"
-x_train, y_train, x_test, y_test = silver_box_dataset(4,5,1, normalize=False)
+data_name = "wiener_hammer_dataset"
+x_train, y_train, x_test, y_test = wiener_hammer_dataset(1, 1, 1, normalize=False)
 inputs = torch.FloatTensor(x_train)
 output = torch.FloatTensor(y_train)
 
@@ -57,8 +57,8 @@ for epoch in range(N_EPOCHS):
     hist_loss.append(np.mean(epoch_loss))
     print("Epoch %d -- loss %f, RMS error %f " % (epoch+1, hist_loss[-1], hist_error[-1]))
 
-torch.save(mlp.state_dict(), SAVE_PATH + data_name + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + ".dat")
-print("Model saved to %s" % SAVE_PATH + data_name + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + ".dat")
+torch.save(mlp.state_dict(), SAVE_PATH + data_name + "_1_1_1_" + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + ".dat")
+print("Model saved to %s" % SAVE_PATH + data_name + "_1_1_1_" + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + ".dat")
 
 plt.plot(hist_error)
 plt.title("Training RMS Error")
